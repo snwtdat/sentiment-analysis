@@ -24,17 +24,13 @@ Dự án xây dựng một hệ thống trí tuệ nhân tạo dự đoán thôn
 
 ---
 
-## Cấu trúc thư mục
+## 🧩 Công nghệ sử dụng
+- Python 3.11.11
+- Flask
+- scikit-learn (LinearSVC)
+- HTML5
+- Pipeline
+- FeatureUninon
 
-📦project-root
-├── docx                       # File báo cáo 
-├── pptx                       
-├── preprocessing.py           # Tiền xử lý dữ liệu
-├── train.py                   # Huấn luyện mô hình
-├── app.py
-├── svc_model.pkl/             # Mô hình đã huấn luyện
-├── templates/
-│   └── index.html             # Giao diện chính
-└── README.md
 
 
