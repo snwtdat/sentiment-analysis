@@ -63,3 +63,12 @@ class NumEmojiFeature(BaseEstimator, TransformerMixin): # Đếm số emoji
 def removeMissingValue(df):
     df = df.dropna()
     return df
+def OverSampling(df, target_col):
+    from imblearn.over_sampling import RandomOverSampler
+    X = df.drop(columns=[target_col])
+    y = df[target_col]
+    
+    ros = RandomOverSampler(random_state=42)
+    X_resampled, y_resampled = ros.fit_resample(X, y)
+    
+    return X_resampled, y_resampled

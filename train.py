@@ -18,12 +18,13 @@ from preprocessing import *
 
 
 # Load data
-df_train = pd.read_csv("/Users/softann/Documents/Sentiment Analsys/dataset/train.csv")
-df_test = pd.read_csv("/Users/softann/Documents/Sentiment Analsys/dataset/test.csv")
+df_train = pd.read_csv("/Users/softann/sentiment-analysis/dataset/train.csv")
+df_test = pd.read_csv("/Users/softann/sentiment-analysis/dataset/test.csv")
 
 removeMissingValue(df_train)
 removeMissingValue(df_test)
 
+OverSampling(df_train, "label")
 X = df_train['comment'].values
 y = df_train['label'].values
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -81,11 +82,14 @@ def train_and_evaluate(model, model_name):
     print(f"\nAccuracy: {acc:.4f}")
     print(classification_report(y_val, y_pred))
     print(f"\nTime taken: {time.time() - start_time:.2f} seconds")
+    cm = confusion_matrix(y_val, y_pred)
+    ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=pipeline.classes_)
+
     return pipeline
 
 svm_model = train_and_evaluate(SVC(kernel='linear', C=0.2175, class_weight='balanced'), "SVM")
-# rf_model = train_and_evaluate(RandomForestClassifier(n_estimators=100, class_weight='balanced'), "Random Forest")
-# lr_model = train_and_evaluate(LogisticRegression(max_iter=1000, class_weight='balanced'), "Logistic Regression")
-# knn_model = train_and_evaluate(DecisionTreeClassifier(random_state=42, class_weight='balanced'), "Decision Tree")
+rf_model = train_and_evaluate(RandomForestClassifier(n_estimators=100, class_weight='balanced'), "Random Forest")
+lr_model = train_and_evaluate(LogisticRegression(max_iter=1000, class_weight='balanced'), "Logistic Regression")
+knn_model = train_and_evaluate(DecisionTreeClassifier(random_state=42, class_weight='balanced'), "Decision Tree")
 
 joblib.dump(svm_model, "svc_model.pkl")
