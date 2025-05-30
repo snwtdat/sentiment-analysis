@@ -22,7 +22,6 @@ df_train = pd.read_csv("/Users/softann/sentiment-analysis/dataset/train.csv")
 df_test = pd.read_csv("/Users/softann/sentiment-analysis/dataset/test.csv")
 
 removeMissingValue(df_train)
-removeMissingValue(df_test)
 
 OverSampling(df_train, "label")
 X = df_train['comment'].values
